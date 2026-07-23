@@ -13,6 +13,9 @@ postBtn.addEventListener("click",function(){
         return;                                       // this will not post any thing if input is emapt
     }
     let newPost = document.createElement("p");
+    let fromData = new FormData();
+    fromData.append("post",postText);
+    fetch("http://127.0.0.1:8000/post",{method:"POST",body:fromData});
     newPost.innerText = postText;                     // puts the user text inside the <p>
     let deleteBtn = document.createElement("button")  // we have created new button "delete"
     deleteBtn.innerText = "Delete"                    // the "delete" word is shown on deleteBtn button
@@ -25,4 +28,12 @@ postBtn.addEventListener("click",function(){
     postinput.value = "";                             // clear the input after posting
     console.log(postText);                             // this is display that text in console
 });
+
+fetch("http://127.0.0.1:8000/posts")                   // this will fetch posts 
+.then(function(response){
+    return response.json();
+})
+.then(function(posts){
+    console.log(posts);
+})
 
